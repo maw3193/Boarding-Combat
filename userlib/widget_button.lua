@@ -1,5 +1,6 @@
 local w_button = {}
 --Button for resizing
+local colour = require"userlib/colour"
 local template = {
 	parent = nil,
 	posx = nil, --position local to the panel it is attached to
@@ -7,8 +8,9 @@ local template = {
 	width = 16,
 	height = 16,
 	data = nil,
-	bordercol = {255,255,255,255},
-	fillcol = {127,127,127,255},
+	bordercol = colour.white,
+	fillcol = colour.transgrey,
+	icon = nil,
 	draw = function(self)
 		love.graphics.setColor(self.bordercol)
 		love.graphics.rectangle("line", self.parent:getX() + self.posx,
@@ -18,6 +20,11 @@ local template = {
 		love.graphics.rectangle("fill", self.parent:getX() + self.posx,
 		                        self.parent:getY() + self.posy, self.width,
 		                        self.height)
+		if self.icon then
+			self.icon:draw(self.parent:getX() + self.posx, 
+			               self.parent:getY() + self.posy, 1)
+		end
+
 		
 	end,
 	update = function(self, dt)

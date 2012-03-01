@@ -1,15 +1,20 @@
-local ui = require"userlib/ui"
-local panel = require"userlib/panel"
+local ui = require "userlib/ui"
+local colour = require "userlib/colour"
+local panel = require "userlib/panel"
 local wrbutton = require "userlib/widget_resizebutton"
-local wlbutton = require"userlib/widget_lockbutton"
+local wlbutton = require "userlib/widget_lockbutton"
+local wlabel = require "userlib/widget_label"
+local wtitle = require "userlib/widget_title"
 function love.load()
-	love.graphics.setLineWidth(2)
+	love.graphics.setLineWidth(1.5)
 	game = {}
+	game.bitmaps = {}
 	game.ui = ui.newui()
-	game.ui:addpanel(panel.newpanel({posx = 10, fillcol = {255,0,0,127}}))
-	game.ui:addpanel(panel.newpanel({fillcol = {0,0,255,127}}))
+	game.ui:addpanel(panel.newpanel({posx = 10, fillcol = colour.transred, minwidth=32, minheight=32}))
+	game.ui:addpanel(panel.newpanel({fillcol = colour.transblue}))
 	game.ui.panels[1]:addwidget(wrbutton.newresizebutton({parent = game.ui.panels[1]}))
 	game.ui.panels[1]:addwidget(wlbutton.newbutton({parent = game.ui.panels[1]}))
+	game.ui.panels[1]:addwidget(wtitle.new(game.ui.panels[1], "Red box"))
 end
 
 function love.update(dt)

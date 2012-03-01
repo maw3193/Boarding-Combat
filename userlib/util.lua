@@ -10,4 +10,11 @@ function util.ripairs(t)
 	return ripairs_it, t, #t+1
 end
 
+function util.addbitmap(path)
+	if not game.bitmaps[path] then
+		game.bitmaps[path] = love.graphics.newImage(path)
+	end
+	return game.bitmaps[path]
+end
+
 return util

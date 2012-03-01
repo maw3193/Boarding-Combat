@@ -1,5 +1,8 @@
 local w_resize = {}
 --Button for resizing
+local icon = require"userlib/icon"
+local colour = require"userlib/colour"
+local resizeicon = "art/icons/paneldragicon.png"
 local widgettemplate = {
 	parent = nil,
 	posx = nil, --position local to the panel it is attached to
@@ -9,8 +12,9 @@ local widgettemplate = {
 	pressed = false,
 	offsetx = nil,
 	offsety = nil,
-	bordercol = {255,255,255,255},
-	fillcol = {127,127,127,255},
+	icon = nil,
+	bordercol = colour.white,
+	fillcol = colour.invisible,
 	draw = function(self)
 		love.graphics.setColor(self.bordercol)
 		love.graphics.rectangle("line", self.parent:getX() + self.posx,
@@ -20,23 +24,27 @@ local widgettemplate = {
 		love.graphics.rectangle("fill", self.parent:getX() + self.posx,
 		                        self.parent:getY() + self.posy, self.width,
 		                        self.height)
+		self.icon:draw(self.parent:getX() + self.posx, 
+		self.parent:getY() + self.posy, 1)
 		
 	end,
 	update = function(self, dt)
 		if self.pressed then
-			self.parent.width = love.mouse.getX() - self.parent:getX() - self.offsetx + self.width
-			self.parent.height = love.mouse.getY() - self.parent:getY() - self.offsety + self.height
-			self.posx = love.mouse.getX() - self.offsetx - self.parent:getX()
-			self.posy = love.mouse.getY() - self.offsety - self.parent:getY()
-			if self.parent.width < self.parent.minwidth then
+			if love.mouse.getX() < self.parent:getX() + self.parent.minwidth then --TOO FAR LEFT
 				self.parent.width = self.parent.minwidth
 				self.posx = self.parent.width - self.width
+			else
+				self.parent.width = love.mouse.getX() - self.parent:getX() - self.offsetx + self.width
+				self.posx = love.mouse.getX() - self.offsetx - self.parent:getX()
 			end
-			if self.parent.height < self.parent.minheight then
+			if love.mouse.getY() < self.parent:getY() + self.parent.minheight then --TOO FAR UP
 				self.parent.height = self.parent.minheight
-				self.posy = self.height - self.parent.height
-			end
-			
+				self.posy = self.parent.height - self.height
+			else
+				self.parent.height = love.mouse.getY() - self.parent:getY() - self.offsety + self.height
+				self.posy = love.mouse.getY() - self.offsety - self.parent:getY()
+
+			end			
 		end
 
 	end,
@@ -52,16 +60,14 @@ local widgettemplate = {
 		end
 	end,
 	mousepressed = function(self, x, y, button)
-		self.fillcol = {255,255,255,255}
+		self.fillcol = colour.transwhite
 		self.pressed = true
 		self.offsetx = x - self:getScreenX()
 		self.offsety = y - self:getScreenY()
-		print("set pressed")
 	end,
 	mousereleased = function(self, x, y, button)
-		self.fillcol = {127,127,127,255}
+		self.fillcol = colour.invisible
 		self.pressed = false
-		print("unset pressed")
 		
 	end,
 	getScreenX = function(self)
@@ -83,6 +89,7 @@ w_resize.newresizebutton = function(data)
 	end
 	temp.posx = temp.parent.width - temp.width
 	temp.posy = temp.parent.height - temp.height
+	temp.icon = icon.new(resizeicon, 1,0,0,colour.white)
 	return temp
 end
 

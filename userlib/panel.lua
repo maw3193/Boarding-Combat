@@ -1,12 +1,13 @@
 local panel = {}
 --A draggable, resizable container that holds widgets.
+local util = require "userlib/util"
 local paneltemplate = {
 	posx = 0,
 	posy = 0,
 	width = 100,
 	height = 100,
-	minwidth = 16,
-	minheight = 16,
+	minwidth = 32,
+	minheight = 32,
 	grabbed = false,
 	locked = false,
 	grabbedx = nil, --position the cursor grabbed at
@@ -22,7 +23,7 @@ local paneltemplate = {
 		love.graphics.setColor(self.fillcol)
 		love.graphics.rectangle("fill", self.posx, self.posy,
 		                        self.width, self.height)
-		for _,v in pairs(self.widgets) do
+		for _,v in util.ripairs(self.widgets) do
 			v:draw()
 		end
 	end,
