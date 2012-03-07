@@ -1,6 +1,7 @@
 local ui = {}
 local util = require "userlib/util"
 local uitemplate = {
+	images = nil,
 	panels = nil,
 	pressedthing = nil,
 	pressedthingkey = nil,
@@ -37,12 +38,19 @@ local uitemplate = {
 			self.pressedthingkey = nil
 		end
 	end,
+	addimage = function(self, imagepath)
+		if not self.images[imagepath] then
+			self.images[imagepath] = love.graphics.newImage(imagepath)
+		end		
+		return self.images[imagepath]
+	end,
 }
 
 uitemplate.__index = uitemplate
 
 ui.newui = function()
 	local temp = setmetatable({}, uitemplate)
+	temp.images = {}
 	temp.panels = {}
 	return temp
 end

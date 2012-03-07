@@ -34,7 +34,9 @@ local paneltemplate = {
 		end
 		if self.widgets then
 			for _,v in pairs(self.widgets) do
-				v:update(dt)
+				if v.update then
+					v:update(dt)
+				end
 			end
 		end
 	end,
@@ -52,7 +54,9 @@ local paneltemplate = {
 	mousepressed = function(self, x, y, button)
 		for k,v in pairs(self.widgets) do
 			if v:testpoint(x,y) then
-				v:mousepressed(x, y, button)
+				if v.mousepressed then 
+					v:mousepressed(x, y, button)
+				end
 				self.pressedwidget = v
 				break
 			end
@@ -65,7 +69,9 @@ local paneltemplate = {
 	end,
 	mousereleased = function(self, x, y, button)
 		if self.pressedwidget then
-			self.pressedwidget:mousereleased(x, y, button)
+			if self.pressedwidget.mousereleased then
+				self.pressedwidget:mousereleased(x, y, button)
+			end
 			self.pressedwidget = nil
 		end
 		if button == "l" and not self.locked and not self.pressedwidget then

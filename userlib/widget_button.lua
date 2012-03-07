@@ -27,8 +27,7 @@ local template = {
 
 		
 	end,
-	update = function(self, dt)
-	end,
+	update = nil, --An update function(self, dt) will be called if it exists.
 	testpoint = function(self, x, y)
 		if x >= self.posx + self.parent:getX()
 			and x <= self.posx + self.parent:getX() + self.width
@@ -40,11 +39,8 @@ local template = {
 			return false
 		end
 	end,
-	mousepressed = function(self, x, y, button)
-	end,
-	mousereleased = function(self, x, y, button)
-		
-	end,
+	mousepressed = nil, --function(self,x,y,button) can be called
+	mousereleased = nil, --function(self,x,y,button) can be called
 	getScreenX = function(self)
 		return self.posx + self.parent:getX()
 	end,

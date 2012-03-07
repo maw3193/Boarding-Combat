@@ -13,6 +13,9 @@ local colour = {
 	transgreen = {0,255,0,127},
 	transblue = {0,0,255,127},
 	invisible = {0,0,0,0},
+	
+	transmedblue = {0,0,127,127},
+	transdarkblue = {0,0,63,127},
 }
 
 
