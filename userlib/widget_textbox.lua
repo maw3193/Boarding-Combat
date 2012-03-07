@@ -25,7 +25,7 @@ w_textbox.new = function(data)
 	temp.update = w_textbox.update
 	
 	local charwidth = math.floor(temp.width/game.ui.smallfont:getWidth("O"))
-	print("This textbox is "..charwidth.." characters wide.")
+	print("One character of this font is "..game.ui.smallfont:getWidth("O")..". The textbox is ".. temp.width .. " pixels wide. "..charwidth.." characters will fit in this box")
 	temp.lines = util.splitstringintolines(temp.text, charwidth)
 	return temp
 end

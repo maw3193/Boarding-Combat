@@ -24,12 +24,6 @@ function util.getlinewithspaces(str, width, start)
 	local pos
 	local nextstart
 	local addnewline = false
-	pos, _ = str:find("\n", start)
-	if (pos ~= nil) then 
-		if (pos - start) < width then 
-			string = str:sub(start, curr)
-		end
-	end
 	curr = start
 	while (true) do
 		pos, _ = str:find("\n", curr)
@@ -56,10 +50,13 @@ function util.getlinewithspaces(str, width, start)
 		end
 	end
 	endpos = endpos - 1 --str:find() points too far for str:sub
-	string = str:sub(start, endpos)
-	if addnewline == true then
-		string = string .. "\n"
+	if endpos ~= nil then
+		string = str:sub(start, endpos)
+		if addnewline == true then
+			string = string .. "\n"
+		end
 	end
+
 	nextstart = endpos + 1
 	return string, nextstart
 end
@@ -68,12 +65,14 @@ function util.splitstringintolines(str, width)
 	local temp = {}
 	local string
 	local nextpos = 1
-
+	local it = 1
 	while(true) do
 		string, nextpos = util.getlinewithspaces(str, width, nextpos)
 		if string == "" or string == nil then
 			break
 		end
+		print("In iteration " ..it..", string was "..string)
+		it = it + 1
 		table.insert(temp, string)
 		string = nil
 	end

@@ -13,6 +13,7 @@ function love.load()
 	game = {}
 	game.bitmaps = {}
 	game.ui = ui.newui()
+	love.graphics.setFont(game.ui.smallfont)
 	game.ui:addpanel(panel.newpanel{posx = 10, fillcol = colour.transred, minwidth=32, minheight=32})
 	game.ui:addpanel(panel.newpanel{fillcol = colour.transblue})
 	game.ui.panels[1]:addwidget(wrbutton.newresizebutton{parent = game.ui.panels[1]})
@@ -21,7 +22,7 @@ function love.load()
 	game.sprite = sprite.new(game.ui, "art/sprites/rifleman.png", {colour.white, colour.blue, colour.invisible, colour.black})
 	game.ui.panels[2]:addwidget(wsprite.new{parent=game.ui.panels[2], sprite=game.sprite, posx=8, posy=8, scale=0.5})
 	game.ui.panels[2]:addwidget(wsprite.new{parent=game.ui.panels[2], sprite=game.sprite, posx=24, posy=8, scale=0.5, rot=math.pi})
-	game.ui.panels[2]:addwidget(wtextbox.new{parent=game.ui.panels[2], posx=0, posy=16, width=128, height=128, text="Oh great, now I have to write an essay to have it display properly!\nOh well, mustn't grumble for some reason. Personally, I think grumbling is a good idea and quite healthy.\nWhatever, time to see how many bugs I have!"})
+	game.ui.panels[2]:addwidget(wtextbox.new{parent=game.ui.panels[2], posx=0, posy=16, width=128, height=128, text="Iammakingtwoverylongwords toseehowitparses"})
 end
 
 function love.update(dt)
