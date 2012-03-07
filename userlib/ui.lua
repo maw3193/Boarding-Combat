@@ -5,7 +5,7 @@ local uitemplate = {
 	panels = nil,
 	pressedthing = nil,
 	pressedthingkey = nil,
-	smallfont = love.graphics.newFont(10),
+	smallfont = love.graphics.newFont("art/fonts/Lucida Console.ttf", 10),
 	draw = function(self)
 		for _,v in pairs(self.panels) do
 			v:draw()
