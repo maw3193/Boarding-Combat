@@ -66,16 +66,29 @@ function util.splitstringintolines(str, width)
 	local string
 	local nextpos = 1
 	local it = 1
+	-- GOES INTO INFINITE LOOPS AT BAD TIMES. NEEDS FIXING
 	while(true) do
 		string, nextpos = util.getlinewithspaces(str, width, nextpos)
 		if string == "" or string == nil then
 			break
 		end
-		print("In iteration " ..it..", string was "..string)
+		print("In iteration " ..it..", string was: "..string)
 		it = it + 1
 		table.insert(temp, string)
 		string = nil
 	end
+	--]]
+	--[[
+	while (nextpos < #str) do
+		if (nextpos + width < #str) then
+			string = str:sub(nextpos, nextpos + width)
+		else
+			string = str:sub(nextpos, #str)
+		end
+		table.insert(temp, string)
+		nextpos = nextpos + width
+	end
+	--]]
 	return temp
 end
 

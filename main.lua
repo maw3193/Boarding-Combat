@@ -22,7 +22,7 @@ function love.load()
 	game.sprite = sprite.new(game.ui, "art/sprites/rifleman.png", {colour.white, colour.blue, colour.invisible, colour.black})
 	game.ui.panels[2]:addwidget(wsprite.new{parent=game.ui.panels[2], sprite=game.sprite, posx=8, posy=8, scale=0.5})
 	game.ui.panels[2]:addwidget(wsprite.new{parent=game.ui.panels[2], sprite=game.sprite, posx=24, posy=8, scale=0.5, rot=math.pi})
-	game.ui.panels[2]:addwidget(wtextbox.new{parent=game.ui.panels[2], posx=0, posy=16, width=128, height=128, text="Iammakingtwoverylongwords toseehowitparses"})
+	game.ui.panels[2]:addwidget(wtextbox.new{parent=game.ui.panels[2], posx=0, posy=16, width=100, height=100, text="I am writing a lot of text, sometimes with newlines.\n The point of this is to test how well the text box is working. It could be working better, but I can't be arsed."})
 end
 
 function love.update(dt)

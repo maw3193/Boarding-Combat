@@ -5,6 +5,7 @@ local util = require "userlib/util"
 local w_textbox = {
 	draw = function(self, dt)
 		local offset = 0
+		love.graphics.setColor(self.colour)
 		for i,v in ipairs(self.lines) do
 			love.graphics.print(v, self:getScreenX(),
 			                    self:getScreenY() + offset)
@@ -27,6 +28,7 @@ w_textbox.new = function(data)
 	local charwidth = math.floor(temp.width/game.ui.smallfont:getWidth("O"))
 	print("One character of this font is "..game.ui.smallfont:getWidth("O")..". The textbox is ".. temp.width .. " pixels wide. "..charwidth.." characters will fit in this box")
 	temp.lines = util.splitstringintolines(temp.text, charwidth)
+	temp.draw = w_textbox.draw
 	return temp
 end
 
