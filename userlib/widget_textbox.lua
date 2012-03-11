@@ -33,13 +33,9 @@ local w_textbox = {
 	end,
 	mousereleased = function(self, x, y, button)
 		if (button == "wu") then
-			if (self.currentline > 1) then
-				self.currentline = self.currentline - 1
-			end
+			self:scroll(-1)
 		elseif (button == "wd") then
-			if (self.currentline < self.totallines - self.linestodraw + 1) then
-				self.currentline = self.currentline + 1
-			end
+			self:scroll(1)
 		end
 	end,
 	makelines = function(self, text)
@@ -59,6 +55,17 @@ local w_textbox = {
 			self.currentline = self.totallines - self.linestodraw
 		end
 	end,
+	scroll = function(self, n)
+		if (n > 0) then
+			if (self.currentline < self.totallines - self.linestodraw + 1) then
+				self.currentline = self.currentline + n
+			end			
+		elseif (n < 0) then
+			if (self.currentline > 1) then
+				self.currentline = self.currentline + n
+			end
+		end
+	end,
 	lines = nil,
 	currentline = nil,
 	totallines = nil,
@@ -73,6 +80,7 @@ w_textbox.new = function(data)
 	temp.makelines = w_textbox.makelines
 	temp.mousereleased = w_textbox.mousereleased
 	temp.testpoint = w_textbox.testpoint
+	temp.scroll = w_textbox.scroll
 	temp.currentline = 1
 	temp:makelines()
 

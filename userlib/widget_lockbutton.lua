@@ -3,7 +3,8 @@ local w_lock = {}
 local button = require "userlib/widget_button"
 local colour = require "userlib/colour"
 local icon = require "userlib/icon"
-local lockicon = "art/icons/lockicon.png"
+
+local lockicon = "art/icons/lockicon.png" --VERY BAD PRACTICE, PUT IN A CONFIG
 
 w_lock.togglelock = function(self, x, y, button)
 	self.parent.locked = not self.parent.locked
