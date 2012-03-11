@@ -32,7 +32,6 @@ local w_textbox = {
 		end
 	end,
 	mousereleased = function(self, x, y, button)
-		print("click detected")
 		if (button == "wu") then
 			if (self.currentline > 1) then
 				self.currentline = self.currentline - 1
