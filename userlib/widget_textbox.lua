@@ -1,7 +1,7 @@
 local w_label = require "userlib/widget_label"
 local util = require "userlib/util"
---local ui = require "userlib/ui"
-
+local wbutton = require "userlib/widget_button"
+local icon = require "userlib/icon"
 local w_textbox = {
 	draw = function(self, dt)
 		local offset = 0
@@ -72,6 +72,7 @@ local w_textbox = {
 	linestodraw = nil,
 
 }
+
 w_textbox.new = function(data)
 
 	local temp = w_label.newlabel(data)
@@ -85,6 +86,27 @@ w_textbox.new = function(data)
 	temp:makelines()
 
 	return temp
+end
+w_textbox.addtopanel = function(panel, data) --Preferred way of making it
+	local temp = w_textbox.new(data)     --because it includes buttons
+	table.insert(panel.widgets, temp)
+	local buttonsize = 16
+	local buttonposx = temp.posx + temp.width
+	local bottombuttonposy = temp.posy + temp.height - buttonsize
+	table.insert(panel.widgets, wbutton.newbutton{parent=panel, target=temp,
+	                            posx=buttonposx, posy=temp.posy,
+	                            width=buttonsize, height=buttonsize,
+	                            icon=icon.new("art/icons/upicon.png"), 
+	                            mousereleased = function(self)
+	                            	self.target:scroll(-1)
+	                            end})
+	table.insert(panel.widgets, wbutton.newbutton{parent=panel, target=temp,
+	                            posx=buttonposx, posy=bottombuttonposy,
+	                            width=buttonsize, height=buttonsize,
+	                            icon=icon.new("art/icons/downicon.png"), 
+	                            mousereleased = function(self)
+	                            	self.target:scroll(1)
+	                            end})
 end
 
 return w_textbox
